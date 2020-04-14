@@ -83,6 +83,10 @@
     <div class="row">
       <th-switch v-model="active" active-color="#13ce66" inactive-color="#105cdd" name="username"></th-switch>
     </div>
+    <div class="row">
+      <th-radio label="1" v-model="gender">男</th-radio>
+      <th-radio label="0" v-model="gender">女</th-radio>
+    </div>
   </div>
 </template>
 
@@ -93,7 +97,8 @@ export default {
     return {
       visible: false,
       username: 'mike',
-      active: false
+      active: false,
+      gender: '1'
     }
   },
   methods: {

@@ -35,6 +35,7 @@ export default {
   methods: {
     handleChange () {
       this.$emit('input', !this.value)
+      console.log(this.value, 'change')
       // 点击修改
       // nextTick数据修改后，等dom更新，再修改按钮颜色
       this.$nextTick().then(
@@ -53,6 +54,7 @@ export default {
   mounted () {
     this.setColor()
     this.$refs.input.checked = this.value
+    console.log(this.value, 'mounted')
   }
 }
 </script>
