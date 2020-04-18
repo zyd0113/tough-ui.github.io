@@ -33,19 +33,19 @@ export default {
     }
   },
   methods: {
-    handleChange () {
+    async handleChange () {
       this.$emit('input', !this.value)
-      console.log(this.value, 'change')
-      // 点击修改
-      // nextTick数据修改后，等dom更新，再修改按钮颜色
-      this.$nextTick().then(
-        this.setColor(),
-        this.$refs.input.checked = this.value
-      )
+      // 点击的时候，还需要修改背景色
+      // console.log(this.value)
+      // 等待value发生了改变，在setColor
+      // 数据修改后，等待DOM更新，在修改按钮的颜色
+      await this.$nextTick()
+      this.setColor()
+      this.$refs.input.checked = this.value
     },
     setColor () {
       if (this.activeColor || this.inactiveColor) {
-        const color = this.value ? this.activeColor : this.inactiveColor
+        var color = this.value ? this.activeColor : this.inactiveColor
         this.$refs.core.style.borderColor = color
         this.$refs.core.style.backgroundColor = color
       }

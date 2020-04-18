@@ -1,6 +1,5 @@
 <template>
-  <label class="th-radio">
-    <!-- 小圆 -->
+  <label class="th-radio" :class="{'is-checked': label === model}">
     <span class="th-radio__input">
       <span class="th-radio__inner"></span>
       <input
@@ -9,6 +8,7 @@
         v-model="model"
         :value="label"
         ref="radio"
+        :name="name"
       >
     </span>
     <span class="th-radio__label">
@@ -26,14 +26,14 @@ export default {
       get () {
         return this.value
       },
-      set () {
-        this.$emit('input', this.value)
+      set (value) {
+        this.$emit('input', value)
       }
     }
   },
   props: {
     label: {
-      type: { String, Number, Boolean },
+      type: [String, Number, Boolean],
       default: ''
     },
     value: null,
@@ -77,22 +77,49 @@ export default {
       cursor: pointer;
       display: inline-block;
       box-sizing: border-box;
+      &:after {
+        width: 4px;
+        height: 4px;
+        border-radius: 100%;
+        background-color: #fff;
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%) scale(0);
+        transition: transform .15s ease-in;
+      }
     }
     .th-radio__original {
-      // opacity: 0;
-      // outline: none;
-      // position: absolute;
-      // z-index: -1;
-      // top: 0;
-      // left: 0;
-      // right: 0;
-      // bottom: 0;
-      // margin: 0;
+      opacity: 0;
+      outline: none;
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0px;
+      right: 0;
+      bottom: 0;
+      margin: 0;
     }
   }
   .th-radio__label {
     font-size: 14px;
     padding-left: 10px;
+  }
+}
+
+.th-radio.is-checked {
+  .th-radio__input {
+    .th-radio__inner {
+      border-color: #409eff;
+      background: #409eff;
+      &:after {
+        transform: translate(-50%,-50%) scale(1);
+      }
+    }
+  }
+  .th-radio__label {
+    color: #409eff;
   }
 }
 </style>

@@ -1,22 +1,22 @@
 <template>
-  <div class="th-input" :class="{'.th-input--suffix': showSuffix}">
-    <input :type="showPassword ? (passwordVisible ? 'text':'password'):type"
-    class="th-input_inner"
-    :class="{'is-disabled':disabled}"
-    :placeholder="placeholder"
-    :name="name"
-    :disabled="disabled"
-    :value="value"
-    @input="handleInput">
-    <span class=".th-input__suffix" v-if="showSuffix">
-      <i v-if="clearable && this.value"
-        class=".th-input__icon th-icon-circle-close .th-input__clear"
-        @click="clear"
-      ></i>
-      <i v-if="showPassword"
-        class=".th-input__icon th-icon-view .th-input__clear"
+  <div class="th-input" :class="{'th-input--suffix': showSuffix}">
+    <!-- 如果传了show-password, 判断是否需要切换 密码的显示 如果不传，不判断 -->
+    <input
+      class="th-input__inner"
+      :class="{'is-disabled': disabled}"
+      :placeholder="placeholder"
+      :type="showPassword ? (passwordVisible ? 'text':'password') : type"
+      :name="name"
+      :disabled="disabled"
+      :value="value"
+      @input="handleInput"
+    >
+    <span class="th-input__suffix" v-if="showSuffix">
+      <i class="th-input__icon th-icon-circle-close" v-if="clearable" @click="clear"></i>
+      <i class="th-input__icon th-icon-view"
+        v-if="showPassword"
+        @click="handlePassword"
         :class="{'th-icon-view-active':passwordVisible}"
-        @click="handlePasswordVisible"
       ></i>
     </span>
   </div>
@@ -27,6 +27,7 @@ export default {
   name: 'ThInput',
   data () {
     return {
+      // 用于控制是否显示密码框
       passwordVisible: false
     }
   },
@@ -70,9 +71,10 @@ export default {
       this.$emit('input', e.target.value)
     },
     clear () {
+      // 把内容清空
       this.$emit('input', '')
     },
-    handlePasswordVisible () {
+    handlePassword () {
       this.passwordVisible = !this.passwordVisible
     }
   }
@@ -81,19 +83,18 @@ export default {
 
 <style lang="scss">
 .th-input {
-  width: 180px;
+  width: 100%;
   position: relative;
   font-size: 14px;
   display: inline-block;
-  .th-input_inner {
-    cursor: pointer;
+  .th-input__inner {
     -webkit-appearance: none;
     background-color: #fff;
     background-image: none;
     border-radius: 4px;
     border: 1px solid #dcdfe6;
     box-sizing: border-box;
-    color: #000;
+    color: #606266;
     display: inline-block;
     font-size: inherit;
     height: 40px;
@@ -114,11 +115,10 @@ export default {
       cursor: not-allowed;
     }
   }
-
 }
 
 .th-input--suffix {
-  .th-input_inner {
+  .th-input__inner {
     padding-right: 30px;
   }
   .th-input__suffix {
@@ -139,8 +139,8 @@ export default {
     }
     .th-icon-view-active {
       color: blue;
+    }
   }
-  }
-}
 
+}
 </style>
