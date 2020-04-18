@@ -1,24 +1,11 @@
-# tough-ui
 
-## Project setup
-```
-npm install
-```
+- 安装组件库
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+    yarn add tough-ui
 
-### Compiles and minifies for production
-```
-npm run build
-```
+- 全局导入
 
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+    import TouguUI from 'tough-ui'
+    import 'tough-ui/lib/tough.css'
+    
+    Vue.use(TouguUI)
