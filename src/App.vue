@@ -87,6 +87,29 @@
       <th-radio label="1" v-model="gender">男</th-radio>
       <th-radio label="0" v-model="gender">女</th-radio>
     </div>
+    <div class="row">
+      <th-radio-group v-model="gender">
+        <th-radio label="1" >男</th-radio>
+        <th-radio label="0" >女</th-radio>
+      </th-radio-group>
+    </div>
+    <div class="row">
+      <th-checkbox v-model="active">是否选中</th-checkbox>
+    </div>
+    <div class="row">
+      <th-checkbox-group v-model="hobby">
+        <th-checkbox label='抽烟'></th-checkbox>
+        <th-checkbox label='喝酒'></th-checkbox>
+        <th-checkbox label='烫头'></th-checkbox>
+      </th-checkbox-group>
+    </div>
+    <div class="row">
+      <th-form :model="model" label-width='100px'>
+        <th-form-item label="用户名" >
+            <th-input placeholder="请输入用户名"  name="username" clearable></th-input>
+        </th-form-item>
+      </th-form>
+    </div>
   </div>
 </template>
 
@@ -98,7 +121,11 @@ export default {
       visible: false,
       username: 'mike',
       active: false,
-      gender: '1'
+      gender: '1',
+      hobby: ['抽烟', '喝酒'],
+      model: {
+        username: ''
+      }
     }
   },
   methods: {

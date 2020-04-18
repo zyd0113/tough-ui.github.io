@@ -21,14 +21,26 @@
 <script>
 export default {
   name: 'ThRadio',
+  inject: {
+    RadioGroup: {
+      default: ''
+    }
+  },
   computed: {
     model: {
       get () {
-        return this.value
+        // this.RadioGroup.value
+        return this.isGroup ? this.RadioGroup.value : this.value
       },
       set (value) {
+        // 触发父组件给当前组件注册的input事件
         this.$emit('input', value)
+        this.isGroup ? this.RadioGroup.$emit('input', value) : this.$emit('input', value)
       }
+    },
+    isGroup () {
+      // 用于判断radio是否被radioGroup所包裹
+      return !!this.RadioGroup
     }
   },
   props: {
